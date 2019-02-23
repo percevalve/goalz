@@ -172,7 +172,7 @@
         ],
         responseInProgress: false,
       };
-    },
+    }, 
     computed: {
       attachmentsVisible() {
         const self = this;
