@@ -25,7 +25,7 @@ SECRET_KEY = 'jsri6aenpnu4brd^1@p1+1_n!r7twgjucb0a_!#)y^-nlvou$3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['life-goalz.severin-hatt.com','localhost']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'goalz.api',
+    'voter',
 ]
 
 MIDDLEWARE = [
