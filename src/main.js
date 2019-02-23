@@ -1,17 +1,18 @@
-import Vue from 'vue'
-import App from '@/App.vue'
+import Vue from 'vue';
+import Framework7 from 'framework7/framework7.esm.bundle';
 
-import store from '@/store' 
-import router from '@/router'
+import Framework7Vue from 'framework7-vue';
+import 'framework7/css/framework7.bundle.min.css'
+import App from './App.vue';
 
-Vue.config.productionTip = false
 
-// Vue.use(VueRouter)
+import './assets/css/app.css'
 
-const vue = new Vue({
-  router,
-  store,
-  render: h => h(App)
-})
+Framework7.use(Framework7Vue);
 
-vue.$mount('#app')
+// Init Vue App
+export default new Vue({
+  // Root Element
+  el: '#app',
+  render: c => c(App),
+});

@@ -1,21 +1,38 @@
 <template>
-  <div id="app">
-    <h1>Django VueJs Template</h1>
-    <div id="nav">
-     <router-link :to="{ name: 'home' }">Vue</router-link> |
-     <router-link :to="{ name: 'messages' }">Django Rest</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <f7-app :params="f7Params">
+    <f7-statusbar></f7-statusbar>
+    <f7-panel left cover>
+      <f7-view url="/panel-left/" links-view=".view-main"></f7-view>
+    </f7-panel>
+    <f7-panel right reveal>
+      <f7-view url="/panel-right/"></f7-view>
+    </f7-panel>
+    <f7-view url="/" :main="true" class="safe-areas" :master-detail-breakpoint="800"></f7-view>
+  </f7-app>
 </template>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<script>
+  import { f7App, f7Panel, f7View, f7Statusbar } from 'framework7-vue';
+  import routes from './routes';
+  export default {
+    components: {
+      f7App,
+      f7Panel,
+      f7View,
+      f7Statusbar,
+    },
+    data() {
+      // Demo Theme
+      let theme = 'auto';
+      if (document.location.search.indexOf('theme=') >= 0) {
+        theme = document.location.search.split('theme=')[1].split('&')[0];
+      }
+      return {
+        f7Params: {
+          theme,
+          routes,
+          id: 'io.framework7.testapp',
+        },
+      };
+    },
+  };
+</script>
