@@ -2,14 +2,14 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from .models import Issue, Vote
-import ujson
+import json
 
 
 # Create your views here.
 @csrf_exempt
 def vote(request,issue_id):
     assert issue_id is not None
-    data_vote = ujson.loads(request.body)
+    data_vote = json.loads(request.body)
     assert "grade" in data_vote
     issue = get_object_or_404(Issue, pk=issue_id)
     grade = data_vote.get("grade")
@@ -21,6 +21,6 @@ def vote(request,issue_id):
     except:
         status_code = 500
         json_answer["err"] = f"There was en error processing vote {issue_id} or {grade}"
-    data_json = ujson.dumps(json_answer)
+    data_json = json.dumps(json_answer)
     return HttpResponse(data_json, status=status_code,
                         content_type='application/json')
