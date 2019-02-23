@@ -25,12 +25,14 @@ SECRET_KEY = 'jsri6aenpnu4brd^1@p1+1_n!r7twgjucb0a_!#)y^-nlvou$3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['life-goalz.severin-hatt.com','localhost']
+ALLOWED_HOSTS = ['life-goalz.severin-hatt.com','localhost','127.0.0.1']
+ASGI_APPLICATION = "goalz.routing.application"
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'voter',
+    'board',
 ]
 
 MIDDLEWARE = [

@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from voter.views import vote
+from board.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('vote/<int:issue_id>', vote),
+    path("",index),
 ]
