@@ -4,7 +4,7 @@ const state = {
   messages: [
     {
       type: 'sent',
-      text: 'What motivates you?',
+      text: 'Hi, Jacob, your prompt for today is to tell me "What motivates you?"',
       name: 'Life Goalz',
       avatar: 'https://cdn.framework7.io/placeholder/people-100x100-9.jpg'
     },

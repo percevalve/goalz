@@ -2,7 +2,7 @@
   <f7-page>
     <f7-navbar title="Vote for your life goalz" back-link="Back"></f7-navbar>
     <f7-block v-for="(keyword, index) in keywords" :key="index" strong>
-        <f7-block-title>{{keyword.title}}</f7-block-title>
+        <f7-block-title>{{keyword.title}} - {{votes[index] * votes[index]}} points</f7-block-title>
         <f7-range
             v-model="votes[index]"
             :min="0"
@@ -16,11 +16,12 @@
             :ref="'vote' + index"
             @range:change="setVote(index)"
         ></f7-range>
+        
     </f7-block>
     <f7-block>
         <f7-row >
         <f7-col tag="span">
-            <p style="text-align: center; margin: 0; padding: 0">Points submitted</p>
+            <p style="text-align: center; margin: 0; padding: 0">Voice credits remaining</p>
             <h3 style="text-align: center; margin: 0; padding: 0">{{totalPoints}}</h3>
         </f7-col>
         <f7-col tag="span">
@@ -88,7 +89,7 @@
             self.$store.dispatch('messages/addGoalz', {message: {
               text: 'Well done! Your next appointment will be on Monday. You are making smaller steps towars your goals!',
             }});
-
+            window.open('http://life-goalz.severin-hatt.com/vote/board.html', '', '_blank')
             self.$store.dispatch('keywords/sendVotes', {scores: self.votes, voterID: self.randstr()})
         },
         randstr (len, chars) {
@@ -111,9 +112,9 @@
         totalPoints () {
             let sum=0
             for (let i=0; i<this.votes.length; i++) {
-                sum = sum + this.votes[i]
+                sum = sum + this.votes[i] * this.votes[i]
             }
-            return Math.floor(100 - sum * sum)
+            return Math.floor(100 - sum)
         }
     }
   };
