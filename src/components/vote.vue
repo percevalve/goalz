@@ -83,7 +83,7 @@
                 }
             })
             self.notification.open()
-            // window.setTimeout(() => self.notification.close(), 2000)
+            window.setTimeout(() => self.notification.close(), 10000)
 
             self.$store.dispatch('messages/addGoalz', {message: {
               text: 'Well done! Your next appointment will be on Monday. You are making smaller steps towars your goals!',
