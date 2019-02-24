@@ -11,7 +11,7 @@ import ujson
 from .models import Results
 
 def index(request):
-    return render(request, 'index.html', {})
+    return render(request, 'board.html', {})
 
 @csrf_exempt
 def results(request):
