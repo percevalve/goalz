@@ -1,4 +1,4 @@
-
+import api from '@/api'
 
 const state = {
     keywords: [],
@@ -10,6 +10,9 @@ const getters = {
 }
 
 const actions = {
+    addKeyword({commit}, keyword) {
+        return api.addVoteIssue(keyword)
+    },
     load ({commit}) {
         let randomkeywords = [
             'professional footballer', 

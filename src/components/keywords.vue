@@ -53,6 +53,8 @@
     },
     mounted () {
         this.$store.dispatch('keywords/load')
+
+        this.$store.dispatch('keywords/addKeyword', {keyword: this.keywords[0].title})
         // this.loadKeywords()
 
         // console.log(window.innerWidth)
