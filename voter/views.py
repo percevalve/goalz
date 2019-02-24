@@ -5,7 +5,7 @@ from .models import Issue, Vote
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
-import ujson
+import ujson, json
 
 
 # Create your views here.
@@ -43,10 +43,9 @@ def vote(request,issue_id):
 @csrf_exempt
 def add_issue(request):
     #Some initial assert
-    assert issue_id is not None
     data_issue= json.loads(request.body)
-    assert "description" in data_vote
-    description = data_vote.get("description")
+    assert "description" in data_issue
+    description = data_issue.get("description")
     json_answer = {}
     try:
         issue = Issue(description=description)

@@ -17,6 +17,8 @@
 <script src="//d3js.org/d3.v4.min.js"></script>
 
 <script>
+    //The votes array1
+    var votes = []
     //D3 initialisation
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
@@ -28,11 +30,36 @@
           .padding(0.1);
     var y = d3.scaleLinear()
           .range([height, 0]);
-    
+    var svg = d3.select("#graph").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+    //Initial votes results
+    var url = "http://"+ window.location.host +"/vote/results/";
+    d3.json(url, function (json) {
+      votes = json.data
+      max_val = d3.max(votes,function(d){return d.total_votes})*1.1;
+      x.domain(votes.map(function(d) { return d.description; }));
+      y.domain([0, max_val]);
+      svg.selectAll(".bar")
+         .data(votes)
+         .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.description); })
+            .attr("width", x.bandwidth())
+            .attr("y", function(d) { return y(d.total_votes); })
+            .attr("height", function(d) { return height - y(d.total_votes); });
+      svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+      svg.append("g")
+            .call(d3.axisLeft(y));
+    });
     //===============================
     //WS
-    var chatSocket = new WebSocket(
-        'ws://' + window.location.host + '/board/');
+    var chatSocket = new WebSocket('ws://' + window.location.host + '/board/');
 
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
