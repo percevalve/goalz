@@ -3,7 +3,7 @@ import axios from 'axios'
 
 let _axios = axios.create({
     // Imporant to allow cross-origin sessions
-    withCredentials: true
+    withCredentials: false
 })
 
 Vue.prototype.$http = axios
@@ -20,6 +20,15 @@ export default {
             method: 'post',
             data: {
                 description
+            }
+        })
+    },
+    sendVote (issueID, score) {
+        return _axios({
+            url: 'vote/' + issueID,
+            method: 'post',
+            data: {
+                grade: score
             }
         })
     }

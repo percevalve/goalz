@@ -3,6 +3,7 @@
     <f7-navbar title="Keyword swiping" back-link="Back"></f7-navbar>
     <!-- <f7-block-title>Welcome to Framework7</f7-block-title> -->
     <f7-block>
+        <!-- {{keywords}} -->
         <vue-swing
         @throwout="onThrowout"
         :config="config"
@@ -54,7 +55,7 @@
     mounted () {
         this.$store.dispatch('keywords/load')
 
-        this.$store.dispatch('keywords/addKeyword', {keyword: this.keywords[0].title})
+        // this.$store.dispatch('keywords/addKeyword', {keyword: this.keywords[0].title})
         // this.loadKeywords()
 
         // console.log(window.innerWidth)
