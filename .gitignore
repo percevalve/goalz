@@ -130,5 +130,6 @@ dmypy.json
 
 # ignore node stuff
 node_modules/
+package-lock.json
 
 # End of https://www.gitignore.io/api/django

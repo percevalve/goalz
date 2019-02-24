@@ -10,7 +10,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "font-awesome": "^4.7.0",
+    "framework7": "^4.0.5",
+    "framework7-vue": "^4.0.5",
     "js-cookie": "^2.2.0",
+    "material-design-icons": "^3.0.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
