@@ -23,6 +23,7 @@ from board.views import index
 
 urlpatterns = [
     # http://localhost:8000/
+    path("vote/board/",index),
     path('admin/', admin.site.urls),
     path('vote/<int:issue_id>', vote),
     path("vote/board/",index),

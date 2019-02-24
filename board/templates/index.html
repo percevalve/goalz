@@ -2,15 +2,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <title>Chat Room</title>
+  <meta charset="utf-8"/>
+  <title>Board</title>
+  <style> /* set the CSS */
+    .bar { fill: steelblue; }
+  </style>
 </head>
 <body>
+    <div id="graph"></div>
     <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
     <input id="chat-message-input" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
 </body>
+<script src="//d3js.org/d3.v4.min.js"></script>
+
 <script>
+    //D3 initialisation
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+    // set the ranges
+    var x = d3.scaleBand()
+          .range([0, width])
+          .padding(0.1);
+    var y = d3.scaleLinear()
+          .range([height, 0]);
+    
+    //===============================
+    //WS
     var chatSocket = new WebSocket(
         'ws://' + window.location.host + '/board/');
 

@@ -11,14 +11,23 @@ import json
 # Create your views here.
 @csrf_exempt
 def vote(request,issue_id):
+    #Some initial assert
     assert issue_id is not None
     data_vote = json.loads(request.body)
     assert "grade" in data_vote
-    issue = get_object_or_404(Issue, pk=issue_id)
+
+    #Get object Issue
+    try:
+        issue = Issue.objects.get(pk=issue_id)
+    except Issue.DoesNotExist:
+        msg = f"{issue_id} does not exist in Issue"
+        print(msg)
+        return JsonResponse({"err":msg}, status=500)
     grade = data_vote.get("grade")
+    voter_ref =  data_vote.get("voter_ref","anonymous")
     json_answer = {}
     try:
-        vote = Vote(issue=issue,grade=int(grade))
+        vote = Vote(issue=issue,grade=int(grade),voter_ref=voter_ref)
         vote.save()
         status_code = 202
         channel_layer = get_channel_layer()
