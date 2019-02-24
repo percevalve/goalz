@@ -59,6 +59,7 @@
       svg.append("g")
             .attr("class", "axis")
             .call(d3.axisLeft(y));
+      bars.exit().remove();
     }
     d3.json(url, function(json){update(json.data);});
     //===============================
