@@ -23,7 +23,8 @@ def vote(request,issue_id):
         status_code = 202
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)("main", {"type": "chat_message","message":f'{issue_id} +{grade}'})
-    except:
+    except Exception as e:
+        print(e)
         status_code = 500
         json_answer["err"] = f"There was en error processing vote {issue_id} or {grade}"
     data_json = json.dumps(json_answer)
