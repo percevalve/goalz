@@ -4,9 +4,7 @@
 <head>
   <meta charset="utf-8"/>
   <title>Board</title>
-  <style> /* set the CSS */
-    .bar { fill: steelblue; }
-  </style>
+
 </head>
 <body>
     <div id="graph"></div>
@@ -23,7 +21,7 @@
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
-
+    var accent = d3.scaleOrdinal(d3.schemeCategory10);
     // set the ranges
     var x = d3.scaleBand()
           .range([0, width])
@@ -51,17 +49,21 @@
             .attr("x", function(d) { return x(d.description); })
             .attr("width", x.bandwidth())
             .attr("y", function(d) { return y(d.total_votes); })
-            .attr("height", function(d) { return height - y(d.total_votes); });
+            .attr("height", function(d) { return height - y(d.total_votes); })
+            .style("fill", function(d,i) {return accent(i);})
+      svg.selectAll(".axis").remove()
       svg.append("g")
+            .attr("class", "axis")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x));
       svg.append("g")
+            .attr("class", "axis")
             .call(d3.axisLeft(y));
     }
     d3.json(url, function(json){update(json.data);});
     //===============================
     //WS
-    var chatSocket = new WebSocket('ws://' + window.location.host + '/board/');
+    var chatSocket = new WebSocket('ws://' + window.location.host + '/vote/data.html');
 
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
