@@ -1,11 +1,13 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from .models import Issue, Vote
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
 import ujson, json
+
+from .models import Issue, Vote
+from board.views import submit_to_websocket
 
 
 # Create your views here.
@@ -30,8 +32,7 @@ def vote(request,issue_id):
         vote = Vote(issue=issue,grade=int(grade),voter_ref=voter_ref)
         vote.save()
         status_code = 202
-        channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)("main", {"type": "chat_message","message":f'{issue_id} +{grade}'})
+        submit_to_websocket(vote)
     except Exception as e:
         print(e)
         status_code = 500

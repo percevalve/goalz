@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'goalz.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-db_config = config("DB_CONFIG","sqlite3")
+db_config = config("DB_CONFIG","SQLITE3")
 
 if db_config == "POSTGRES":
     DATABASES = {
