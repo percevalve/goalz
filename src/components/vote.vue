@@ -53,11 +53,11 @@
     },
     mounted () {
         let self = this
-        this.$store.dispatch('keywords/load').then(res => {
-            for (let i=0; i<self.keywords.length; i++) {
-                self.votes.push(5)
-            }
-        })
+        // this.$store.dispatch('keywords/load').then(res => {
+        for (let i=0; i<self.keywords.length; i++) {
+            self.votes.push(5)
+        }
+        // })
     },
     
     methods: {
@@ -88,6 +88,8 @@
             self.$store.dispatch('messages/addGoalz', {message: {
               text: 'Well done! Your next appointment will be on Monday. You are making smaller steps towars your goals!',
             }});
+
+            self.$store.dispatch('keywords/sendVotes', {scores: self.votes})
         }
     },
     computed: {

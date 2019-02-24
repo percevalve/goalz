@@ -51,11 +51,13 @@ INSTALLED_APPS = [
     'goalz.api',
     'voter',
     'board',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -162,3 +164,5 @@ print(STATIC_ROOT)
 
 # Set to your Domain here (eg. 'django-vue-template-demo.herokuapp.com')
 ALLOWED_HOSTS = ['*']
+
+CORS_ORIGIN_ALLOW_ALL = True
