@@ -300,6 +300,7 @@
             self.responseInProgress = false;
           }, 1000);
         }, 700);
+        
       },
     },
   };
