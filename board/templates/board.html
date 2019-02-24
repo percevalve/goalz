@@ -63,7 +63,7 @@
     d3.json(url, function(json){update(json.data);});
     //===============================
     //WS
-    var chatSocket = new WebSocket('ws://' + window.location.host + '/vote/board.html');
+    var chatSocket = new WebSocket('ws://' + window.location.host + '/vote/data.html');
 
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
