@@ -42,9 +42,9 @@ const actions = {
 
         return new Promise((resolve, reject) => {resolve()})
     },
-    sendVotes ({state, commit}, {scores}) {
+    sendVotes ({state, commit}, {scores, voterID}) {
         for (var i=0; i<scores.length; i++) {
-            api.sendVote(state.selectedKeywords[i].id, scores[i])
+            api.sendVote(state.selectedKeywords[i].id, scores[i], voterID)
         }
     }
 }

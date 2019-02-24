@@ -24,7 +24,7 @@
             <h3 style="text-align: center; margin: 0; padding: 0">{{totalPoints}}</h3>
         </f7-col>
         <f7-col tag="span">
-            <f7-button large fill @click="displayNotification">Fill</f7-button>
+            <f7-button large fill @click="displayNotification" :disabled="totalPoints < 0">Vote</f7-button>
         </f7-col>
         </f7-row> 
     </f7-block>   
@@ -55,7 +55,7 @@
         let self = this
         // this.$store.dispatch('keywords/load').then(res => {
         for (let i=0; i<self.keywords.length; i++) {
-            self.votes.push(5)
+            self.votes.push(0)
         }
         // })
     },
@@ -89,9 +89,21 @@
               text: 'Well done! Your next appointment will be on Monday. You are making smaller steps towars your goals!',
             }});
 
-            self.$store.dispatch('keywords/sendVotes', {scores: self.votes})
+            self.$store.dispatch('keywords/sendVotes', {scores: self.votes, voterID: self.randstr()})
+        },
+        randstr (len, chars) {
+        len = len || 32;
+        chars = chars || '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz';
+        
+        var str = '';
+        
+        for (var i = 0; i < len; i++) {
+            str += chars.charAt(Math.random() * chars.length);
         }
-    },
+        
+        return str;
+        }        
+    },    
     computed: {
         keywords () {
             return this.$store.state.keywords.selectedKeywords
@@ -101,7 +113,7 @@
             for (let i=0; i<this.votes.length; i++) {
                 sum = sum + this.votes[i]
             }
-            return Math.floor(sum)
+            return Math.floor(100 - sum * sum)
         }
     }
   };

@@ -23,12 +23,13 @@ export default {
             }
         })
     },
-    sendVote (issueID, score) {
+    sendVote (issueID, score, voterID) {
         return _axios({
             url: 'vote/' + issueID,
             method: 'post',
             data: {
-                grade: score
+                grade: score,
+                voter_ref: voterID
             }
         })
     }
