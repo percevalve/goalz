@@ -5,7 +5,7 @@ from .models import Issue, Vote
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
-import json
+import ujson
 
 
 # Create your views here.
@@ -36,6 +36,27 @@ def vote(request,issue_id):
         print(e)
         status_code = 500
         json_answer["err"] = f"There was en error processing vote {issue_id} or {grade}"
-    data_json = json.dumps(json_answer)
+    data_json = ujson.dumps(json_answer)
+    return HttpResponse(data_json, status=status_code,
+                        content_type='application/json')
+
+@csrf_exempt
+def add_issue(request):
+    #Some initial assert
+    assert issue_id is not None
+    data_issue= json.loads(request.body)
+    assert "description" in data_vote
+    description = data_vote.get("description")
+    json_answer = {}
+    try:
+        issue = Issue(description=description)
+        issue.save()
+        json_answer["issue_id"] = issue.id
+        status_code = 202
+    except Exception as e:
+        print(e)
+        status_code = 500
+        json_answer["err"] = f"There was en error adding the issue {description}"
+    data_json = ujson.dumps(json_answer)
     return HttpResponse(data_json, status=status_code,
                         content_type='application/json')
