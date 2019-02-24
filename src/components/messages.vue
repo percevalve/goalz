@@ -191,7 +191,7 @@
       self.$f7ready(() => {
         self.messagebar = self.$refs.messagebar.f7Messagebar;
         self.messages = self.$refs.messages.f7Messages;
-        if (self.messagesData.length > 0) return
+        if (self.messagesData.length > 2) return
         self.goalzMessage({
             name: 'Life Goalz',
             text: 'Hi, Jacob, your prompt for today is to tell me "what is the most important task for you this month?"',
@@ -300,7 +300,7 @@
             self.responseInProgress = false;
           }, 1000);
         }, 700);
-
+        
       },
     },
   };
