@@ -109,7 +109,7 @@ import Panel from './components/panel.vue';
 import NotFound from './components/404.vue';
 
 // Pages
-export default [
+let routes = [
   // Index page
   {
     path: '/',
@@ -643,3 +643,9 @@ export default [
     component: NotFound,
   },
 ];
+
+for (var i=0; i<routes.length-1; i++) {
+  routes[i].path = '/home' + routes[i].path
+}
+
+export default routes

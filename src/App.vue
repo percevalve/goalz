@@ -31,7 +31,12 @@
           theme,
           routes,
           histroy: true,
-          id: 'io.framework7.testapp',
+          id: 'io.framework7.goalz',
+          route: {
+            params: {
+              // base: '/home/'
+            }
+          }
         },
       };
     },

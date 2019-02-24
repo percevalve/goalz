@@ -48,7 +48,6 @@ const actions = {
     message['type'] = 'received'
     message['avatar'] = 'https://cdn.framework7.io/placeholder/people-100x100-7.jpg'
     dispatch('add', {message})
-
   }
   // deleteMessage( { commit }, msgId) {
   //   messageService.deleteMessage(msgId)

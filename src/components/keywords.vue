@@ -73,9 +73,16 @@
             let index = this.getIndex(target.textContent)
             console.log(`Threw out ${target.textContent}! ${index}`)
 
-            if (index ===0) {
-                this.$f7router.navigate('/vote/', {pushState: true, history: true})
+            // add it to the selected keyword if user swipes right
+            if (throwDirection === VueSwing.Direction.RIGHT) {
+                this.$store.commit('keywords/addSelected', {keyword: this.votes[index]})
             }
+
+
+            if (index ===0) {
+                this.$f7router.navigate('/home/vote/', {pushState: true, history: true})
+            }
+
         }
     },
     computed: {

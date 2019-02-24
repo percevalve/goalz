@@ -168,7 +168,7 @@
         ],
         answerIndex: 0,
         answers: [
-          'Thank you for your response. Vote for your life goalz: <a href="/keywords/" title="click here" style="color:#ccc">click here</a>'
+          'Thank you for your response. Vote for your life goalz: <a href="/home/keywords/" title="click here" style="color:#ccc">click here</a>'
         ],
         responseInProgress: false,
       };
@@ -298,7 +298,7 @@
             }});
             self.typingMessage = null;
             self.responseInProgress = false;
-          }, 300);
+          }, 1000);
         }, 700);
       },
     },

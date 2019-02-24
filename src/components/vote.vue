@@ -77,13 +77,13 @@
                 closeOnClick: true,
                 on: {
                     notificationClick() {
-                        self.$f7router.navigate('/messages/', {pushState: true, history: true})
+                        self.$f7router.navigate('/home/messages/', {pushState: true, history: true})
                         self.notification.close()
                     }
                 }
             })
             self.notification.open()
-            window.setTimeout(() => self.notification.close(), 2000)
+            // window.setTimeout(() => self.notification.close(), 2000)
 
             self.$store.dispatch('messages/addGoalz', {message: {
               text: 'Well done! Your next appointment will be on Monday. You are making smaller steps towars your goals!',
@@ -92,7 +92,7 @@
     },
     computed: {
         keywords () {
-            return this.$store.state.keywords.keywords
+            return this.$store.state.keywords.selectedKeywords
         },
         totalPoints () {
             let sum=0

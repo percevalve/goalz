@@ -1,7 +1,8 @@
 
 
 const state = {
-    keywords: []
+    keywords: [],
+    selectedKeywords: [],
 }
 
 const getters = {
@@ -11,9 +12,9 @@ const getters = {
 const actions = {
     load ({commit}) {
         let randomkeywords = [
-            'proffesional footballer', 
+            'professional footballer', 
             'gym',
-            'footabll boots',
+            'football boots',
             'mates',
             'day',
             'sports',
@@ -39,6 +40,9 @@ const actions = {
 const mutations = {
     setKeywords (state, {keywords}) {
         state.keywords = keywords
+    },
+    addSelected (state, {keyword}) {
+        state.selectedKeywords.push(keyword)
     }
 }
 
