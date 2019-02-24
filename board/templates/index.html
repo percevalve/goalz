@@ -39,13 +39,14 @@
     //Initial votes results
     var url = "http://"+ window.location.host +"/vote/results/";
     function update(json){
-      votes = json.data
+      console.log(json)
+      votes = json
       max_val = d3.max(votes,function(d){return d.total_votes})*1.1;
       x.domain(votes.map(function(d) { return d.description; }));
       y.domain([0, max_val]);
-      svg.selectAll(".bar")
-         .data(votes)
-         .enter().append("rect")
+      var bars = svg.selectAll("rect").data(votes);
+      bars.enter().append("rect")
+         .merge(bars)
             .attr("class", "bar")
             .attr("x", function(d) { return x(d.description); })
             .attr("width", x.bandwidth())
@@ -57,7 +58,7 @@
       svg.append("g")
             .call(d3.axisLeft(y));
     }
-    d3.json(url, update);
+    d3.json(url, function(json){update(json.data);});
     //===============================
     //WS
     var chatSocket = new WebSocket('ws://' + window.location.host + '/board/');
