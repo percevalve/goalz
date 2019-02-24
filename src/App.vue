@@ -7,7 +7,7 @@
     <f7-panel right reveal>
       <f7-view url="/panel-right/"></f7-view>
     </f7-panel>
-    <f7-view url="/" :main="true" class="safe-areas" :master-detail-breakpoint="800"></f7-view>
+    <f7-view url="/" :main="true" :pushState="true" :history="true" class="safe-areas" :master-detail-breakpoint="800"></f7-view>
   </f7-app>
 </template>
 <script>
@@ -30,6 +30,7 @@
         f7Params: {
           theme,
           routes,
+          histroy: true,
           id: 'io.framework7.testapp',
         },
       };
