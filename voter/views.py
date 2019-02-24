@@ -2,6 +2,9 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from .models import Issue, Vote
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 import json
 
 
@@ -18,6 +21,8 @@ def vote(request,issue_id):
         vote = Vote(issue=issue,grade=int(grade))
         vote.save()
         status_code = 202
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)("main", {"type": "chat_message","message":f'{issue_id} +{grade}'})
     except:
         status_code = 500
         json_answer["err"] = f"There was en error processing vote {issue_id} or {grade}"

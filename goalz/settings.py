@@ -27,7 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['life-goalz.severin-hatt.com','localhost','127.0.0.1']
 ASGI_APPLICATION = "goalz.routing.application"
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 # Application definition
 
@@ -138,4 +145,3 @@ print(STATIC_ROOT)
 
 # Set to your Domain here (eg. 'django-vue-template-demo.herokuapp.com')
 ALLOWED_HOSTS = ['*']
-
