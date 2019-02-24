@@ -75,7 +75,7 @@
 
             // add it to the selected keyword if user swipes right
             if (throwDirection === VueSwing.Direction.RIGHT) {
-                this.$store.commit('keywords/addSelected', {keyword: this.votes[index]})
+                this.$store.commit('keywords/addSelected', {keyword: this.keywords[index]})
             }
 
 
