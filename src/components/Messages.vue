@@ -91,19 +91,19 @@
         sheetVisible: false,
         typingMessage: null,
         messageText: '',
-        messagesData: [
-          {
-            type: 'received',
-            text: 'What motivates you?',
-            name: 'Life Goalz',
-            avatar: 'https://cdn.framework7.io/placeholder/people-100x100-9.jpg'
-          },
-          {
-            type: 'sent',
-            text: 'Sport is a passion of mine. I really want to be professional footballer, but I don’t even have the money for some football boots. I used to play with my mates every day but they don’t want to talk to me any more.',
-            name: 'Jacob',
-            avatar: 'https://cdn.framework7.io/placeholder/people-100x100-7.jpg'
-          }
+        // messagesData: [
+        //   {
+        //     type: 'received',
+        //     text: 'What motivates you?',
+        //     name: 'Life Goalz',
+        //     avatar: 'https://cdn.framework7.io/placeholder/people-100x100-9.jpg'
+        //   },
+        //   {
+        //     type: 'sent',
+        //     text: 'Sport is a passion of mine. I really want to be professional footballer, but I don’t even have the money for some football boots. I used to play with my mates every day but they don’t want to talk to me any more.',
+        //     name: 'Jacob',
+        //     avatar: 'https://cdn.framework7.io/placeholder/people-100x100-7.jpg'
+        //   }
           // {
           //   name: 'Kate',
           //   type: 'received',
@@ -147,7 +147,7 @@
           //   text: 'Awesome!',
           //   avatar: 'https://cdn.framework7.io/placeholder/people-100x100-7.jpg',
           // },
-        ],
+        // ],
         images: [
           'https://cdn.framework7.io/placeholder/cats-300x300-1.jpg',
           'https://cdn.framework7.io/placeholder/cats-200x300-2.jpg',
@@ -168,12 +168,15 @@
         ],
         answerIndex: 0,
         answers: [
-          'Thank you for your response. Vote for your life goalz: <a href="google.com">click here</a>'
+          'Thank you for your response. Vote for your life goalz: <a href="/home/keywords/" title="click here" style="color:#ccc">click here</a>'
         ],
         responseInProgress: false,
       };
     }, 
     computed: {
+      messagesData () {
+        return this.$store.state.messages.messages
+      },
       attachmentsVisible() {
         const self = this;
         return self.attachments.length > 0;
@@ -188,11 +191,11 @@
       self.$f7ready(() => {
         self.messagebar = self.$refs.messagebar.f7Messagebar;
         self.messages = self.$refs.messages.f7Messages;
+        if (self.messagesData.length > 2) return
         self.goalzMessage({
             name: 'Life Goalz',
-            type: 'received',
             text: 'Hi, Jacob, your prompt for today is to tell me "what is the most important task for you this month?"',
-            avatar: 'https://cdn.framework7.io/placeholder/people-100x100-9.jpg'
+            // avatar: 'https://cdn.framework7.io/placeholder/people-100x100-9.jpg'
         });
       })
     },
@@ -201,8 +204,9 @@
         let self = this
         self.typingMessage = {name: data.name}
         window.setTimeout(function () {
-          self.messagesData.push(data)
-          self.sendMessage()
+          self.$store.dispatch('messages/addGoalz', {message: data})
+          // self.messagesData.push(data)
+          // self.sendMessage()
           self.typingMessage = false
         }, delay)
       },
@@ -271,7 +275,8 @@
         // Focus area
         if (text.length) self.messagebar.focus();
         // Send message
-        self.messagesData.push(...messagesToSend);
+        // self.messagesData.push(...messagesToSend);
+        self.$store.dispatch('messages/addJacob', {message:messagesToSend[0]})
 
         // Mock response
         if (self.responseInProgress) return;
@@ -285,16 +290,17 @@
             avatar: person.avatar,
           };
           setTimeout(() => {
-            self.messagesData.push({
+            self.$store.dispatch('messages/add', {message: {
               text: answer,
-              type: 'received',
+              type: 'sent',
               name: person.name,
               avatar: person.avatar,
-            });
+            }});
             self.typingMessage = null;
             self.responseInProgress = false;
-          }, 300);
+          }, 1000);
         }, 700);
+        
       },
     },
   };

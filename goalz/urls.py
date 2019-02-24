@@ -28,4 +28,6 @@ urlpatterns = [
     path('vote/<int:issue_id>', vote),
     path("vote/results/", results),
     path("vote/add_issue/", add_issue),
+    path("vote/board/",index),
+    path('home/', index_view, name='index'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
