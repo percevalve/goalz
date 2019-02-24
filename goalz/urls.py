@@ -18,13 +18,16 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from .api.views import index_view, MessageViewSet
-from voter.views import vote
-from board.views import index
+from voter.views import vote, add_issue
+from board.views import index,results
 
 urlpatterns = [
     # http://localhost:8000/
+    path("vote/board/",index),
     path('admin/', admin.site.urls),
     path('vote/<int:issue_id>', vote),
+    path("vote/results/", results),
+    path("vote/add_issue/", add_issue),
     path("vote/board/",index),
     path('home/', index_view, name='index'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
