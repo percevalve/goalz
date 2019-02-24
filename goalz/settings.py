@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -85,12 +86,27 @@ WSGI_APPLICATION = 'goalz.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+db_config = config("DB_CONFIG","sqlite3")
+
+if db_config == "POSTGRES":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            #'ENGINE': 'django.db.backends.mysql',
+            'NAME': config('POSTGRES_DB',"test"),
+            'USER': config('POSTGRES_USER',"test"),
+            'PASSWORD': config('POSTGRES_PASSWORD',"test"),
+            'HOST': config('DB_SERVER',"localhost"),
+            'PORT': config('POSTGRES_PORT',5432),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+        }
 
 
 # Password validation
