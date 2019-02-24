@@ -25,6 +25,7 @@ SECRET_KEY = 'jsri6aenpnu4brd^1@p1+1_n!r7twgjucb0a_!#)y^-nlvou$3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 ALLOWED_HOSTS = ['life-goalz.severin-hatt.com','localhost','127.0.0.1']
 ASGI_APPLICATION = "goalz.routing.application"
