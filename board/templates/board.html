@@ -37,6 +37,11 @@
       console.log(json)
       votes = json
       max_val = d3.max(votes,function(d){return d.total_votes})*1.1;
+      var x = d3.scaleBand()
+            .range([0, width])
+            .padding(0.1);
+      var y = d3.scaleLinear()
+            .range([height, 0]);
       x.domain(votes.map(function(d) { return d.description; }));
       y.domain([0, max_val]);
       var bars = svg.selectAll("rect").data(votes);
@@ -49,12 +54,15 @@
           .style("opacity", 0)
           .style("fill", "white")
           .merge(bars).transition().duration(600)
+            .attr("width", x.bandwidth())
+            .attr("x", function(d) { return x(d.description); })
             .attr("y", function(d) { return y(d.total_votes); })
             .attr("height", function(d) { return height - y(d.total_votes); })
             .style("fill", function(d,i) {return accent(i);})
             .style("opacity", 1.0)
       bars.exit().remove();
       svg.selectAll(".axis").remove()
+
       svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + height + ")")
