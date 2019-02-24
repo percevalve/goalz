@@ -18,22 +18,36 @@
             <span>{{ keyword.title }}</span>
             <img :src="keyword.imageSrc " width="100%">   
         </div>
-        </vue-swing>        
+        </vue-swing>
+    </f7-block>
+    <f7-block>
+        <f7-row style="margin-top: 500px;">
+        <f7-col tag="span">
+            <f7-button large fill @click="swipeLeft" color="red">No X</f7-button>
+        </f7-col>
+        <f7-col tag="span">
+            <f7-button large fill @click="swipeRight">Yes ✓</f7-button>
+        </f7-col>
+        </f7-row>
+
     </f7-block>
   </f7-page>
 </template>
 <script>
-  import { f7Page, f7Navbar, f7BlockTitle, f7Block } from 'framework7-vue';
+  import { f7Row, f7Col, f7Page, f7Navbar, f7BlockTitle, f7Block, f7Button } from 'framework7-vue';
   import VueSwing from 'vue-swing'
 
   // https://source.unsplash.com/900x1600/?nature,water 
 
   export default {
     components: {
+      f7Row,
+      f7Col,
       f7Page,
       f7Navbar,
       f7BlockTitle,
       f7Block,
+      f7Button,
       'vue-swing': VueSwing
     },
     data () {
@@ -65,6 +79,23 @@
         // this.$refs.card.style.left = window.innerWidth/2 - width/2
     },
     methods: {
+        swipeLeft () {
+            const cards = this.$refs.vueswing.cards
+            cards[cards.length - 1].throwOut(
+                -500 + Math.random() * 100 - 50,
+                -500 + Math.random() * 100 - 50
+            )
+            this.keywords.pop()
+        },
+        swipeRight () {
+            this.$store.commit('keywords/addSelected', {keyword: Object.assign(this.keywords[this.keywords.length-1])})
+            const cards = this.$refs.vueswing.cards
+            cards[cards.length - 1].throwOut(
+                500 + Math.random() * 100 - 50,
+                500 + Math.random() * 100 - 50
+            )
+            this.keywords.pop()
+        },
         getIndex (text) {
             for (let i=0; i<this.keywords.length; i++) {
                 if (this.keywords[i].title === text) {
@@ -78,7 +109,7 @@
 
             // add it to the selected keyword if user swipes right
             if (throwDirection === VueSwing.Direction.RIGHT) {
-                this.$store.commit('keywords/addSelected', {keyword: this.keywords[index]})
+                this.$store.commit('keywords/addSelected', {keyword: Object.assign(this.keywords[index])})
             }
 
 
@@ -113,6 +144,7 @@
   position: absolute;
   top: calc(50%);
   width: 400px;
+  max-width: 90%;
 }
 
 .card img {
