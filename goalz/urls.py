@@ -26,4 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('vote/<int:issue_id>', vote),
     path("vote/board/",index),
+    path('home/', index_view, name='index'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
